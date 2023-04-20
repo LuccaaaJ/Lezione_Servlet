@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>폼!!!</title>
+<style>
+	li {
+	list-style-type: none;
+	}
+</style>
+</head>
+<body>
+<h1>금요일 수업 빨리 끝나는 날</h1>
+	<form action="/exweb/form.do" method="get">
+		
+		주문할 상품 :
+		<select name="prod">
+			<option value="shoes">신발</option>
+			<option value="watch">시계</option>
+			<option value="furniture">가구</option>
+		</select>
+		<br>
+		
+		좋아하는 과일 :
+		<input type="radio" name="fruit" value="berry" id="f1"><label for="f1">딸기</label>
+		<input type="radio" name="fruit" value="peach" id="f2"><label for="f2">복숭아</label>
+		<input type="radio" name="fruit" value="orange" id="f3"><label for="f3">귤</label>
+		<br>
+		
+		음료 :
+		<input type="checkbox" name="drink" value="coffee" id="d1"><label for="d1">커피</label>
+		<input type="checkbox" name="drink" value="greentea" id="d2"><label for="d2">녹차</label>
+		<input type="checkbox" name="drink" value="blacktea" id="d3"><label for="d3">홍차</label>
+		<br>
+		
+		<input type="submit">
+	
+	</form>
+	<!-- submit버튼을 클릭하면,
+	선택한 상품의 사진
+	선택한 과일의 이름("berry","peach","orange")
+	선택한 음료의 이름들 ("coffee", "greentea", "blacktea")
+	이 화면에 출력되도록 FormServlet 클래스를 변경하세요.
+	상품사진의 주소는 
+	신발은 https://api.lorem.space/image/shoes?w=150&h=150
+	시계은 https://api.lorem.space/image/watch?w=150&h=150
+	가구는 https://api.lorem.space/image/furniture?w=150&h=150 -->
+	
+	<!-- 딸기를 선택하면 fruit=berry,
+	복숭아를 선택하면 fruit=peach,
+	귤를 선택하면 fruit=orange 라고 파라미터를 전송하도록 구현하세요.
+	커피를 선택하면 drink=coffee,
+	녹차를 선택하면 drink=greentea,
+	홍차를 선택하면 drink=blacktea 라고 파라미터를 전송하도록 구현하세요. -->
+	
+	<h2>회원추가</h2>
+	<form action="/exweb/member/add.do" method="post">
+		아이디 : <input type="text" name="memId" value=""/><br>
+		비밀번호 : <input type="password" name="memPass" value=""/><br>
+		이름 : <input type="text" name="memName" value=""/><br>
+		포인트 : <input type="number" name="memPoint" value="0"/><br>
+		<input type="submit" value="입력완료">
+	</form>
+	<!-- submit 버튼을 클릭하면 입력한 회원정보가 데이터베이스에 추가되도록
+	MemAddServlet을 변경하세요.
+	실행결과 "1명의 회원 추가" 메시지가 이클립스 콘솔이 아닌
+	웹 브라우저 화면에 출력 되도록 MemAddServlet을 변경하세요. -->
+	
+	<h2>세션, 서블릿컨텍스트, 쿠키 저장</h2>
+	<form action="/exweb/save" method="get">
+		닉네임 : <input type="text" name="nn" value=""/><br>
+		<input type="checkbox" name="rem" value="on"/>기억하기<br>
+		<input type="submit"/>
+	</form>
+	 
+	 
+	 
+	 
+	<hr>
+	<h2>학생 추가</h2>
+	<form action="/exweb/student/add.do" method="post">
+		아이디 : <input type="text" name="stuId" value=""/><br>
+		학생이름 : <input type="text" name="stuName" value=""/><br>
+		점수 : <input type="number" name="stuScore" value="0"/><br>
+		<input type="submit" value="입력완료">
+	</form>
+	<h2>학생 조회</h2>
+	<form action="/exweb/student/list.do" method="post">
+		<input type="submit" value="조회">
+	</form>
+	
+</body>
+</html>
