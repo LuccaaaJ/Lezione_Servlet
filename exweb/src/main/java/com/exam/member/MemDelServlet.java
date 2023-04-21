@@ -20,56 +20,23 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/member/del.do")
 public class MemDelServlet extends HttpServlet{
-
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";		//데이터베이스 서버 주소
-	String user = "web";									//데이터베이스 접속 아이디
-	String password = "web01";								//데이터베이스 접속 비밀번호
+	
+	private MemberDao memberDao = new MemberDaoJdbc();
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		req.setCharacterEncoding("UTF-8");
-		
-		
-		PrintWriter out = resp.getWriter();
+//		req.setCharacterEncoding("UTF-8");	//필터로 이동
 		
 		String memId = req.getParameter("memId");
 	
+		int n = memberDao.deleteMember(memId);
 		
-		String sql 
-		= "DELETE FROM member WHERE mem_id = ?";
-		
-		
-		
-		int n = 0;	
-		//try() 내부에 선언된 변수의 값은
-		//try-catch 블럭의 실행이 완료된 후 자동으로 close() 메서드 실행
-		try(	
-				//지정한 데이터베이스에 접속(로그인)
-				Connection conn = DriverManager.getConnection(url, user, password);
-				//해당 연결을 통해 실행할 SQL문을 담은 명령문 객체 생성
-				PreparedStatement pstmt = conn.prepareStatement(sql);
-			) {
-			//pstmt 명령문 객체에 담겨 있는 SQL문의 ?에 값을 채워넣기
-			//채워넣는 값의 타입에 따라서 set타입명() 메서드 사용
-			pstmt.setString(1, memId);		//1번째 ?에 memId 값을 넣기
-			
-			//SQL문 실행(INSERT, UPDATE, DELETE 문 실행은 executeUpdate() 메서드 사용)
-			n = pstmt.executeUpdate();	//반환값은 영향받은 레코드(row) 수
-		
-			
-		} 
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
+		System.out.println(n + "명의 회원 삭제");
 		
 		resp.sendRedirect(req.getContextPath() + "/member/list.do");
 		
-		//finally {
-			//pstmt.close();		//명령문 객체가 사용하던 자원 반납
-			//conn.close();			//데이터베이스와 연결 종료
-		//}
-		
+//		PrintWriter out = resp.getWriter();
 //		resp.setCharacterEncoding("UTF-8");
 //		resp.setContentType("text/html");
 //		out.println("<!DOCTYPE html>             ");

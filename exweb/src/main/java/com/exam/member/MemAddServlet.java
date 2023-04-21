@@ -15,55 +15,29 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/member/add.do")
 public class MemAddServlet extends HttpServlet{
-
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";		//데이터베이스 서버 주소
-	String user = "web";									//데이터베이스 접속 아이디
-	String password = "web01";								//데이터베이스 접속 비밀번호
+	private MemberDao memberDao = new MemberDaoJdbc();
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		req.setCharacterEncoding("UTF-8");
+//		req.setCharacterEncoding("UTF-8");	//필터로 이동
+		MemberVo vo = new MemberVo();
+	
+		vo.setMemId( req.getParameter("memId") );
+		vo.setMemPass( req.getParameter("memPass") );
+		vo.setMemName( req.getParameter("memName") );
+		vo.setMemPoint( Integer.parseInt( req.getParameter("memPoint") ) );
 		
-		
-		String memId = req.getParameter("memId");
-		String memPass = req.getParameter("memPass");
-		String memName = req.getParameter("memName");
-		int memPoint = Integer.parseInt(req.getParameter("memPoint"));
+//		String memId = req.getParameter("memId");
+//		String memPass = req.getParameter("memPass");
+//		String memName = req.getParameter("memName");
+//		int memPoint = Integer.parseInt(req.getParameter("memPoint"));
 	
 		
-		String sql 
-		= "INSERT INTO MEMBER (mem_id, MEM_PASS, MEM_NAME, MEM_POINT) VALUES (?, ?, ?, ?)";
+		int n = memberDao.insertMember(vo);
 		
-		int n = 0;	
-		//try() 내부에 선언된 변수의 값은
-		//try-catch 블럭의 실행이 완료된 후 자동으로 close() 메서드 실행
-		try(	
-				//지정한 데이터베이스에 접속(로그인)
-				Connection conn = DriverManager.getConnection(url, user, password);
-				//해당 연결을 통해 실행할 SQL문을 담은 명령문 객체 생성
-				PreparedStatement pstmt = conn.prepareStatement(sql);
-			) {
-			//pstmt 명령문 객체에 담겨 있는 SQL문의 ?에 값을 채워넣기
-			//채워넣는 값의 타입에 따라서 set타입명() 메서드 사용
-			pstmt.setString(1, memId);		//1번째 ?에 memId 값을 넣기
-			pstmt.setString(2, memPass);	//2번째 ?에 memPass 값을 넣기
-			pstmt.setString(3, memName);	//3번째 ?에 memName 값을 넣기
-			pstmt.setInt(4, memPoint);		//4번째 ?에 memPoint 값을 넣기
-			
-			//SQL문 실행(INSERT, UPDATE, DELETE 문 실행은 executeUpdate() 메서드 사용)
-			n = pstmt.executeUpdate();	//반환값은 영향받은 레코드(row) 수
+		System.out.println(n + "명의 회원 추가");
 		
-			
-		} 
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		//finally {
-			//pstmt.close();		//명령문 객체가 사용하던 자원 반납
-			//conn.close();			//데이터베이스와 연결 종료
-		//}
 		
 		//회원목록 출력
 		//MemListServlet 실행!
@@ -94,5 +68,7 @@ public class MemAddServlet extends HttpServlet{
 //		out.println("</html>                     ");
 
 	}
+
+	
 	
 }
