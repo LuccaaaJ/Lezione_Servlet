@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 //웹 브라우저 화면에 회원 정보를 입력하는 폼을 출력하도록
 //MemAddFormServlet을 변경하세요.
 
-@WebServlet("/member/addform.do")
+//@WebServlet("/member/addform.do")
 public class MemAddFormServlet extends HttpServlet {
 
 	@Override

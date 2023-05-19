@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/member/add.do")
-public class MemAddServlet extends HttpServlet{
+@WebServlet("/member/edit.do")
+public class MemEditServlet extends HttpServlet{
 	private MemberDao memberDao = new MemberDaoBatis();
 	
 	
@@ -22,7 +22,12 @@ public class MemAddServlet extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/member/memAdd.jsp").forward(req, resp);
+	String memId = req.getParameter("memId");
+	MemberVo vo = memberDao.selectMember(memId);
+	req.setAttribute("mvo", vo);
+	
+	
+		req.getRequestDispatcher("/WEB-INF/views/member/memEdit.jsp").forward(req, resp);
 	}
 	
 	@Override

@@ -3,6 +3,19 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+<settings>
+<!-- 조회결과를 자바객체에 담을때, 밑줄표기법의 컬럼명과 낙타표기법의 자바속성(변수)명을 자동 연결 -->
+<setting name="mapUnderscoreToCamelCase" value="true"/>
+</settings>
+
+<typeAliases>
+<!-- 마이바티스 설정 파일 내에서 com.exam.member.MemberVo 를 MemberVo로 대신 사용 가능-->
+<typeAlias type="com.exam.member.MemberVo" alias="MemberVo"/>
+<!--  패키지 태그를 사용하면, 지정한 패키지 하위의 모든 클래스들에 대한 별명을 자동 등록
+별명은 패키지명을 제외한 심플클래스으로 설정-->
+<!-- <package name="com.exam.member"/> -->
+</typeAliases>
+
 	<!-- 실제로 사용할 데이터베이스 정보를 담은 environment 의 id속성값을 default 속성값으로 지정 -->
   <environments default="development">
   	<!-- 사용하는 데이터베이스 접속 정보를 environment 태그로 설정 -->
@@ -18,8 +31,12 @@
     </environment>
   </environments>
   <mappers>
+  	
   	<!-- 마이바티스를 통해서 실행할 SQL문들을 담고있는 XML파일을 등록 -->
   	<!-- /exweb/src/main/java/는 지움, 클래스패스 기준이므로 -->
     <mapper resource="batis/mappers/MemberMapper.xml"/>
+    
+    
+    
   </mappers>
 </configuration>
