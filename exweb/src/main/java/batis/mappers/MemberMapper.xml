@@ -25,11 +25,11 @@
   <select id="selectMemberList" resultType="MemberVo">
   <!--resultMap속성을 사용하여, id가 MemberMap인 resultMap에 써놓은대로 조회결과를 담도록 설정 -->
   <!-- <select id="selectMemberList" resultMap="MemberMap"> -->
-    select mem_id, MEM_PASS, MEM_NAME, MEM_POINT from MEMBER
+    select mem_id, MEM_NAME, MEM_POINT from MEMBER
   </select>
 
   <select id="selectMember" resultType="MemberVo">
-    select mem_id, MEM_PASS, MEM_NAME, MEM_POINT from MEMBER where mem_id = #{memId}
+    select mem_id, MEM_NAME, MEM_POINT from MEMBER where mem_id = #{memId}
   </select>
   
   <!-- SQL문 실행시 전달받는 데이터의 타입을 parameterType 속성에 지정 가능(생략도 가능) -->
@@ -39,6 +39,15 @@
  <delete id="deleteMember" parameterType="java.lang.String">
  	DELETE FROM member WHERE mem_id = #{memId}
  </delete>
+ 
+ <update id="updateMember" parameterType="MemberVo">
+ 	UPDATE MEMBER SET MEM_NAME=#{memName}, MEM_POINT=#{memPoint} where mem_id = #{memId}
+ </update>
+ 
+ <select id="selectLogin" resultType="MemberVo">
+    select mem_id, MEM_NAME, MEM_POINT from MEMBER where mem_id = #{memId} and MEM_PASS=#{memPass}
+  </select>
+ 
   <!-- 문자열, 정수 등 단일값을 갖는 데이터를 파라미터(인자)로 받은 경우, #{속성명}의 속성명에는 어떤 이름을 써도 무방
   일반적으로는 value 또는 변수명을 사용 -->
 <!--  파라미터(인자)로 받은 객체의 속성값들을 SQL문 내에 사용하기 위해서, #{속성명} 또는 ${속성명} 표현을 사용 -->

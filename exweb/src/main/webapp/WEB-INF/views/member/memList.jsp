@@ -21,7 +21,8 @@
 	<meta charset=\"UTF-8\">    
 	<title>회원관리</title>  	
 	</head>                 
-	<body>              	
+	<body>
+	<jsp:include page="/WEB-INF/views/menu.jsp"></jsp:include>
 	<h2>회원목록</h2>
 	<%-- <a href='<%=request.getContextPath()%>/member/add.do'>회원추가</a> --%>
 	<a href='${pageContext.request.contextPath}/member/add.do'>회원추가</a>

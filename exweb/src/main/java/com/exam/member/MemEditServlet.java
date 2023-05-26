@@ -47,9 +47,9 @@ public class MemEditServlet extends HttpServlet{
 //		int memPoint = Integer.parseInt(req.getParameter("memPoint"));
 	
 		
-		int n = memberDao.insertMember(vo);
+		int n = memberDao.updateMember(vo);
 		
-		System.out.println(n + "명의 회원 추가");
+		System.out.println(n + "명의 회원 변경");
 		
 		
 		//회원목록 출력
